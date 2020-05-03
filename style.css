@@ -1,0 +1,64 @@
+body {
+    background: #fff;
+}
+
+.container {
+    position: relative;
+    top: 150px;
+    width: 600px;
+    
+}
+
+h2 {
+    font-weight: bold;
+}
+
+.title {
+    text-align: center;
+
+}
+
+.question {
+    text-align: left;
+}
+
+.instructions {
+    width: 300px;
+}
+
+.btn {
+    background: rgb(79, 29, 126);
+    color: #fff;
+    margin: 3px;
+    padding: none;
+}
+
+.scores-link {
+    float: left;
+    margin: 10px 20px;
+    text-decoration: none;
+    color: rgb(79, 29, 126);
+}
+.timer {
+    float: right; 
+    margin: 10px 20px;
+}
+
+.highscores {
+    text-align: left;
+    padding-left: 15px;
+}
+
+.highscore-item {
+    background: light rgba(219, 169, 219, 0.966);
+    display: none;
+}
+
+.hide {
+    display: none;
+}
+
+.left {
+    position: relative;
+    right: 135px;
+}
