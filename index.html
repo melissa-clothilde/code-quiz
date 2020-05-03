@@ -45,24 +45,35 @@
     </div>
 
     <div class="container">
-        <div class="col-md-4"></div>
-        <div id="question-container" class="hide row justify-content-md-center">
-            <h3 id="question" class="title"></h3>
-            <br>
-            <div class="row">
-                <div id="answer-buttons" class="col-md-12 text-center options">
-                    <button id="option0" class='left btn'>Answer 1</button>
-                    <br>
-                    <button id="option1" class=' left btn'>Answer 2</button>
-                    <br>
-                    <button id="option2" class='left btn'>Answer 3</button>
-                    <br>
-                    <button id="option3" class='left btn'>Answer 4</button>
-                    <br>
+        <div class="col-md-9">
+            <div id="question-container"
+                class="hide row justify-content-md-center">
+                <h3 id="question"></h3>
+                <div class="row">
+                    <div id="answer-buttons"
+                        class="col-md-12 text-center options">
+                        <button id="option0" class='option btn'>Answer 1</button>
+                        <br>
+                        <button id="option1" class='option btn'>Answer 2</button>
+                        <br>
+                        <button id="option2" class='option btn'>Answer 3</button>
+                        <br>
+                        <button id="option3" class='option btn'>Answer 4</button>
+                    </div>
                 </div>
             </div>
+            <div id="correct-response" class="text-muted hide">
+                <hr>
+                <p>Correct!</p>
+            </div>
         </div>
-    </div>
+        <div id="wrong-response" class="text-muted hide">
+            <hr>
+            <p>Wrong!</p>
+        </div>
+        </div>
+
+
 
 
         <!--[if lt IE 7]>

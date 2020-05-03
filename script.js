@@ -2,41 +2,43 @@ var startBtn = document.querySelector('.start');
 var startPageContent = document.querySelector('.container');
 var timer = document.querySelector('.timer');
 var score = document.querySelector('.scores');
-var currentQuestionIndex = 0;
 var questionContainerElement = document.getElementById('question-container');
+var optionBtn = document.getElementsByClassName('option');
+var currentQuestionIndex = 0;
+
 
 var questions = [
     {
         title: "Commonly used data types DO NOT include:",
-        choices: ["strings", "booleans", "alerts", "numbers"],
-        answer: "alerts"
+        choices: ["1. strings", "2. booleans", "3. alerts", "4. numbers"],
+        answer: "3. alerts"
     },
     {
         title: "The condition in an if / else statement is enclosed within ____.",
-        choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
-        answer: "parentheses"
+        choices: ["1. quotes", "2. curly brackets", "3. parentheses", "4. square brackets"],
+        answer: "3. parentheses"
     },
     {
         title: "Arrays in JavaScript can be used to store ____.",
         choices: [
-            "numbers and strings",
-            "other arrays",
-            "booleans",
-            "all of the above"
+            "1. numbers and strings",
+            "2. other arrays",
+            "3. booleans",
+            "4. all of the above"
         ],
-        answer: "all of the above"
+        answer: "4. all of the above"
     },
     {
         title:
             "String values must be enclosed within ____ when being assigned to variables.",
-        choices: ["commas", "curly brackets", "quotes", "parentheses"],
-        answer: "quotes"
+        choices: ["1. commas", "2. curly brackets", "3. quotes", "4. parentheses"],
+        answer: "3. quotes"
     },
     {
         title:
             "A very useful tool used during development and debugging for printing content to the debugger is:",
-        choices: ["JavaScript", "terminal / bash", "for loops", "console.log"],
-        answer: "console.log"
+        choices: ["1. JavaScript", "2. terminal / bash", "3. for loops", "4. console.log"],
+        answer: "4. console.log"
     }
 ];
 
@@ -44,7 +46,7 @@ var questions = [
 
 startBtn.addEventListener('click', startQuiz);
 
-function startQuiz () {
+function startQuiz() {
     startBtn.classList.add('hide');
     startPageContent.classList.add('hide');
     counterRender();
@@ -52,45 +54,58 @@ function startQuiz () {
     renderQuestion();
 };
 
-// Create for loop so that the use r can go through each quiz question
+// Create for loop so that the user can go through each quiz question
 function renderQuestion() {
+    var correctResponse = document.getElementById('correct-response');
+    correctResponse.classList.add('hide');
+    var wrongResponse = document.getElementById('wrong-response');
+    wrongResponse.classList.add('hide');
+    counterRender();
     var currentQuestion = questions[currentQuestionIndex];
     var title = document.getElementById('question');
     title.textContent = currentQuestion.title;
 
 
     currentQuestion.choices.forEach(function (choice, i) {
-        var options = document.getElementById('option' + i);
+        var options = document.getElementById('option' + i); 
         options.textContent = choice;
     });
-    
 
-//function for what happens when a question choice is clicked
-    questionContainerElement.addEventListener('click', function() {
+
+    //function for what happens when a question choice is clicked
+    questionContainerElement.addEventListener('click', function () {
         var target = event.target;
         var correctAnswer = questions[currentQuestionIndex].answer;
+        console.log(correctAnswer);
         if (target.textContent === correctAnswer) {
             answerIsCorrect();
         }
         else {
             answerIsWrong();
         }
+
+        if (currentQuestionIndex > questions.length) {
+            allDone();
+        }
     });
-    
+
     var score = 0;
+
     function answerIsCorrect() {
-        
-        // var hr = document.createElement('hr');
-        // options.hr.appendChild(hr);
-        // return hr + 'Correct!';
-        // score++;
+        var correctResponse = document.getElementById('correct-response');
+        correctResponse.classList.remove('hide');
+        score += 5;
+        currentQuestionIndex++
+        setTimeout(renderQuestion, 2000);
     }
 
     function answerIsWrong() {
-        // var hr = document.createElement('hr');
-        // options.hr.appendChild(hr);
-        // return hr + 'Wrong!';
-        // timer-- //take 10 seconds off timer
+        var wrongResponse = document.getElementById('wrong-response');
+        wrongResponse.classList.remove('hide');
+        score -= 5;
+        timer -= 10;
+        // currentQuestionIndex++
+        setTimeout(renderQuestion, 3000)
     }
 
     // function checkAnswer(answer, userAnswer) {
@@ -98,7 +113,7 @@ function renderQuestion() {
     //     answerIsCorrect();
     //     }
     //     else {
-        
+
     //     }
     // }
 }
@@ -115,7 +130,7 @@ function scoreRender() {
 
 function counterRender() {
     var counter = 75;
-    setInterval(function() {
+    setInterval(function () {
         timer.textContent = counter;
         counter--;
     }, 1000);
