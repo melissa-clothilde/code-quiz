@@ -29,9 +29,17 @@ h2 {
 .btn {
     background: rgb(79, 29, 126);
     color: #fff;
-    margin: 3px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-left: 0;
     padding: none;
+    padding-left: 0;
     width: 165px;
+}
+
+#answer-buttons {
+    padding-left: 0;
+    align-items: left;
 }
 
 .scores-link {
@@ -60,12 +68,20 @@ h2 {
 }
 
 .option {
-    position: relative;
-    right: 140px;
+    /* position: relative; 
     text-align: left;
+    right: 130px; */
 
 }
 
 #question {
     font-weight: bold;
+}
+
+.return {
+    float: left;
+}
+
+#next {
+    float: right;
 }

@@ -1,12 +1,32 @@
 var startBtn = document.querySelector('.start');
 var startPageContent = document.querySelector('.container');
 var timer = document.querySelector('.timer');
-var score = document.querySelector('.scores');
+var finalScore = document.getElementById('score');
+var submitBtn = document.getElementById('submit');
 var questionContainerElement = document.getElementById('question-container');
 var optionBtn = document.getElementsByClassName('option');
 var currentQuestionIndex = 0;
+var allDone = document.getElementById('all-done');
+var clearHighscores = document.getElementById('clear-scores')
+var nextButton = document.getElementById('next');
+var correctResponse = document.getElementById('correct-response');
+var wrongResponse = document.getElementById('wrong-response');
+var title = document.getElementById('question');
+var counter = 75;
+//this code starts the timer when the user presses start
+//current time displayed, decrement suttent time every second
+function counterRender() {
+    var interval = setInterval(function () {
+        timer.textContent = counter;
+        counter--;
+    }, 1000);
 
+    if (timer === 0) {
+        clearInterval(interval);
+    }
+}
 
+//object of questions, choices, and answers
 var questions = [
     {
         title: "Commonly used data types DO NOT include:",
@@ -43,7 +63,6 @@ var questions = [
 ];
 
 //render quiz questions when user clicks start button
-
 startBtn.addEventListener('click', startQuiz);
 
 function startQuiz() {
@@ -52,22 +71,19 @@ function startQuiz() {
     counterRender();
     questionContainerElement.classList.remove('hide')
     renderQuestion();
+    nextButton.classList.remove('hide');
 };
 
 // Create for loop so that the user can go through each quiz question
 function renderQuestion() {
-    var correctResponse = document.getElementById('correct-response');
-    correctResponse.classList.add('hide');
-    var wrongResponse = document.getElementById('wrong-response');
-    wrongResponse.classList.add('hide');
-    counterRender();
+    correctResponse.classList.add('hide');// look into toggle
+    wrongResponse.classList.add('hide');// look into toggle
+    // counterRender();
     var currentQuestion = questions[currentQuestionIndex];
-    var title = document.getElementById('question');
     title.textContent = currentQuestion.title;
 
-
     currentQuestion.choices.forEach(function (choice, i) {
-        var options = document.getElementById('option' + i); 
+        var options = document.getElementById('option' + i);
         options.textContent = choice;
     });
 
@@ -76,37 +92,41 @@ function renderQuestion() {
     questionContainerElement.addEventListener('click', function () {
         var target = event.target;
         var correctAnswer = questions[currentQuestionIndex].answer;
-        console.log(correctAnswer);
+        // console.log(correctAnswer);//issue: browser is logging two correct answers for middle quiz questions
+        // console.log("currentQuestionIndex" + currentQuestionIndex);
         if (target.textContent === correctAnswer) {
             answerIsCorrect();
         }
         else {
+            console.log(target.textContent, correctAnswer, "answerIsWrong()");
             answerIsWrong();
         }
-
-        if (currentQuestionIndex > questions.length) {
-            allDone();
-        }
     });
+};
+nextButton.addEventListener('click', function () {
+    renderQuestion();
+});
 
-    var score = 0;
 
-    function answerIsCorrect() {
-        var correctResponse = document.getElementById('correct-response');
-        correctResponse.classList.remove('hide');
-        score += 5;
-        currentQuestionIndex++
-        setTimeout(renderQuestion, 2000);
-    }
+score = 0;
+function answerIsCorrect() {
+    correctResponse.classList.remove('hide');
+    score += 5;
+    currentQuestionIndex++;
+    // setTimeout(renderQuestion, 2000);
+    // clearTimeout();
+}
 
-    function answerIsWrong() {
-        var wrongResponse = document.getElementById('wrong-response');
-        wrongResponse.classList.remove('hide');
-        score -= 5;
-        timer -= 10;
-        // currentQuestionIndex++
-        setTimeout(renderQuestion, 3000)
-    }
+function answerIsWrong() {
+    wrongResponse.classList.remove('hide');
+    score -= 5;
+    counter -= 10;
+    timer.textContent = counter;
+    currentQuestionIndex++;
+    console.log(currentQuestionIndex);
+    // setTimeout(renderQuestion, 3000)
+    // clearTimeout();
+}
 
     // function checkAnswer(answer, userAnswer) {
     //     if (questions[currentQuestionIndex].answer) {
@@ -116,22 +136,18 @@ function renderQuestion() {
 
     //     }
     // }
-}
+
+
 //function for what happens when the quiz ends
 //function to save the high score
-function scoreRender() {
-    var storedScores = JSON.parse(localStorage.getItem("scores"));
-}
+var score = localStorage.getItem('.score');
+finalScore.textContent = score;
 
+submitBtn.addEventListener('click', function () {
+    //remove or hide last title/question and choices
+    allDone.classList.remove('hide');
+    localStorage.setItem('score', score);
+});
 
+//function to clear high scores
 
-//this code starts the timer when the user presses start
-//current time displayed, decrement suttent time every second
-
-function counterRender() {
-    var counter = 75;
-    setInterval(function () {
-        timer.textContent = counter;
-        counter--;
-    }, 1000);
-}

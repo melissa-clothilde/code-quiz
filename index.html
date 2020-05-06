@@ -23,7 +23,7 @@
     <header>
         <div>
             <a href="highscores.html" class=scores-link>Highscores</a>
-            <div class="timer">0</div>
+            <div class="timer">75</div>
         </div>
     </header>
 
@@ -49,48 +49,65 @@
             <div id="question-container"
                 class="hide row justify-content-md-center">
                 <h3 id="question"></h3>
-                <div class="row">
-                    <div id="answer-buttons"
-                        class="col-md-12 text-center options">
-                        <button id="option0" class='option btn'>Answer 1</button>
-                        <br>
-                        <button id="option1" class='option btn'>Answer 2</button>
-                        <br>
-                        <button id="option2" class='option btn'>Answer 3</button>
-                        <br>
-                        <button id="option3" class='option btn'>Answer 4</button>
-                    </div>
+
+                <div id="answer-buttons" class="col-md-12 text-center options">
+                    <button id="option0" class='option btn'>Answer
+                        1</button>
+                    <br>
+                    <button id="option1" class='option btn'>Answer
+                        2</button>
+                    <br>
+                    <button id="option2" class='option btn'>Answer
+                        3</button>
+                    <br>
+                    <button id="option3" class='option btn'>Answer
+                        4</button>
+
                 </div>
             </div>
+        </div>
+        <br>
+        <div><button id="next" class='option btn hide'>Next</button>
             <div id="correct-response" class="text-muted hide">
                 <hr>
                 <p>Correct!</p>
             </div>
+            <div id="wrong-response" class="text-muted hide">
+                <hr>
+                <p>Wrong!</p>
+            </div>
         </div>
-        <div id="wrong-response" class="text-muted hide">
-            <hr>
-            <p>Wrong!</p>
+    </div>
+
+    <div id="-all-done" class="hide">
+        <div class="row">
+            <div class="col text-center">
+                <h2 class="title">All Done!</h2>
+                <br>
+                <p>Your final score is <span id=score></span>
+                </p>
+                <input type="text">
+                <button type="button" id="submit" class="btn btn-link"
+                    href="highscores.html">Submit</button>
+            </div>
         </div>
-        </div>
+    </div>
 
-
-
-
-        <!--[if lt IE 7]>
+    <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-            crossorigin="anonymous"></script>
-        <script
-            src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-            crossorigin="anonymous"></script>
-        <script
-            src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-            crossorigin="anonymous"></script>
-        <script src="script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
