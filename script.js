@@ -1,5 +1,5 @@
 var startBtn = document.querySelector('.start');
-var startPageContent = document.querySelector('.container');
+var pageContent = document.querySelector('.container');
 var timer = document.querySelector('.timer');
 var finalScore = document.getElementById('score');
 var submitBtn = document.getElementById('submit');
@@ -13,8 +13,15 @@ var correctResponse = document.getElementById('correct-response');
 var wrongResponse = document.getElementById('wrong-response');
 var title = document.getElementById('question');
 var counter = 75;
-//this code starts the timer when the user presses start
-//current time displayed, decrement suttent time every second
+var answered = false;
+var quizDone = document.getElementById('quiz-done');
+var storageScore = localStorage.getItem('score');
+var initials = localStorage.getItem('initials');
+var initialVal = document.getElementById('initials');
+var goBackBtn = document.getElementById('go-back');
+var clearHighscoresBtn = document.getElementById('clear-scores');
+
+//this code starts the timer 
 function counterRender() {
     var interval = setInterval(function () {
         timer.textContent = counter;
@@ -65,17 +72,58 @@ var questions = [
 //render quiz questions when user clicks start button
 startBtn.addEventListener('click', startQuiz);
 
+questionContainerElement.addEventListener('click', function () {
+    var target = event.target;
+    var correctAnswer = questions[currentQuestionIndex].answer;
+    
+    if (!answered) {
+        if (target.textContent === correctAnswer) {
+            answerIsCorrect();
+            answered = true;
+            nextButton.classList.remove('hide');
+        }
+
+        else {
+            console.log(target.textContent, correctAnswer, "answerIsWrong()");
+            answerIsWrong();
+            answered = true;
+            nextButton.classList.remove('hide');
+        }
+    
+    }
+});
+
+nextButton.addEventListener('click', function () {
+    if (currentQuestionIndex === questions.length - 1) {
+        timer.classList.add('hide');
+        nextButton.classList.add('hide');
+        questionContainerElement.classList.add('hide');
+        quizDone.classList.remove('hide');
+        correctResponse.classList.add('hide');
+        wrongResponse.classList.add('hide');
+        finalScore.textContent = score;
+        if (score < 0) {
+            score === 0;
+        }
+    }
+    else {
+        currentQuestionIndex++;
+        renderQuestion();
+        answered = false;
+    }
+});
+
 function startQuiz() {
     startBtn.classList.add('hide');
-    startPageContent.classList.add('hide');
+    pageContent.classList.add('hide');
     counterRender();
     questionContainerElement.classList.remove('hide')
     renderQuestion();
-    nextButton.classList.remove('hide');
 };
 
-// Create for loop so that the user can go through each quiz question
+// Create for loop to go through each question
 function renderQuestion() {
+    nextButton.classList.add('hide');
     correctResponse.classList.add('hide');// look into toggle
     wrongResponse.classList.add('hide');// look into toggle
     // counterRender();
@@ -86,35 +134,12 @@ function renderQuestion() {
         var options = document.getElementById('option' + i);
         options.textContent = choice;
     });
-
-
-    //function for what happens when a question choice is clicked
-    questionContainerElement.addEventListener('click', function () {
-        var target = event.target;
-        var correctAnswer = questions[currentQuestionIndex].answer;
-        // console.log(correctAnswer);//issue: browser is logging two correct answers for middle quiz questions
-        // console.log("currentQuestionIndex" + currentQuestionIndex);
-        if (target.textContent === correctAnswer) {
-            answerIsCorrect();
-        }
-        else {
-            console.log(target.textContent, correctAnswer, "answerIsWrong()");
-            answerIsWrong();
-        }
-    });
 };
-nextButton.addEventListener('click', function () {
-    renderQuestion();
-});
-
 
 score = 0;
 function answerIsCorrect() {
     correctResponse.classList.remove('hide');
     score += 5;
-    currentQuestionIndex++;
-    // setTimeout(renderQuestion, 2000);
-    // clearTimeout();
 }
 
 function answerIsWrong() {
@@ -122,32 +147,18 @@ function answerIsWrong() {
     score -= 5;
     counter -= 10;
     timer.textContent = counter;
-    currentQuestionIndex++;
     console.log(currentQuestionIndex);
-    // setTimeout(renderQuestion, 3000)
-    // clearTimeout();
 }
 
-    // function checkAnswer(answer, userAnswer) {
-    //     if (questions[currentQuestionIndex].answer) {
-    //     answerIsCorrect();
-    //     }
-    //     else {
-
-    //     }
-    // }
-
-
-//function for what happens when the quiz ends
-//function to save the high score
-var score = localStorage.getItem('.score');
-finalScore.textContent = score;
-
 submitBtn.addEventListener('click', function () {
-    //remove or hide last title/question and choices
-    allDone.classList.remove('hide');
     localStorage.setItem('score', score);
+    localStorage.setItem('initials', initialVal);
+    window.location.replace("highscores.html")
 });
 
-//function to clear high scores
+goBackBtn.addEventListener('click', function () {
+    window.location.replace("index.html");
+});
 
+
+//function to clear high scores

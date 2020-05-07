@@ -67,13 +67,6 @@ h2 {
     display: none;
 }
 
-.option {
-    /* position: relative; 
-    text-align: left;
-    right: 130px; */
-
-}
-
 #question {
     font-weight: bold;
 }
@@ -84,4 +77,18 @@ h2 {
 
 #next {
     float: right;
+}
+
+#allDone {
+    display: block;
+}
+
+#quiz-done {
+    position: relative;
+    top: 150px;
+    width: 600px;
+}
+
+#submit {
+    display: block;
 }
